@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" role="img" aria-label="Foto de diego (substitua pela foto real)">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f1f1f"/><stop offset="1" stop-color="#0d0d0d"/></linearGradient></defs>
+  <rect width="300" height="400" fill="url(#g)"/>
+  <g fill="#3a3a3a">
+    <circle cx="150" cy="150" r="62"/>
+    <path d="M40 400c0-80 50-128 110-128s110 48 110 128z"/>
+  </g>
+  <text x="150" y="168" text-anchor="middle" font-family="Georgia, serif" font-size="52" fill="#9c9c98">DL</text>
+</svg>

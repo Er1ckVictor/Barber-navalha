@@ -1,0 +1,183 @@
+:root {
+  --bg: #0a0a0a;
+  --fg: #f5f5f2;
+  --muted: #9c9c98;
+  --line: rgba(255, 255, 255, 0.14);
+  --ink: #0a0a0a;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'Manrope Variable', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* na home não tem scroll nativo, quem troca de seção é o engine */
+html, body { background: var(--bg); }
+/* .experiencia é adicionada pelo BarberSite; /conta rola normal */
+html.experiencia, html.experiencia body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+body { color: var(--fg); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+
+/* camadas: canvas, foto do main e o conteúdo por cima */
+.gl {
+  position: fixed; inset: 0; width: 100%; height: 100%; display: block;
+  z-index: 0; pointer-events: none; opacity: 0; transition: opacity 0.8s ease;
+}
+.gl.on { opacity: 1; }
+
+.photo {
+  position: fixed; inset: 0; z-index: 0; opacity: 0; pointer-events: none;
+  background: #0a0a0a; will-change: opacity, transform;
+}
+.photo img { object-fit: cover; }
+.photo::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.25) 60%, rgba(0, 0, 0, 0.4));
+}
+
+/* header */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 5;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px clamp(16px, 6vw, 96px);
+}
+.logo { font-family: var(--serif); font-size: 22px; color: var(--fg); text-decoration: none; opacity: 0; }
+.logo span { color: var(--muted); }
+.logo { white-space: nowrap; }
+@media (max-width: 400px) { .logo { font-size: 18px; } .site-header { padding-left: 14px; padding-right: 14px; } }
+
+.btn {
+  display: inline-block; padding: 11px 20px; border-radius: 999px; border: 1px solid var(--fg);
+  background: var(--fg); color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px;
+  transition: transform 0.2s, background 0.3s, color 0.3s, border-color 0.3s;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn.ghost { background: transparent; color: var(--fg); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--fg); }
+.btn:focus-visible, .dots button:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+
+/* as seções ficam empilhadas e só a atual fica visível */
+main { position: relative; height: 100vh; height: 100svh; touch-action: none; }
+section {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 80px clamp(16px, 6vw, 96px) 40px;
+  visibility: hidden; transition: visibility 0s linear 0.3s;
+}
+section.active { visibility: visible; transition-delay: 0s; }
+section.hero, section.intro { visibility: visible; pointer-events: none; transition: none; }
+.brand { will-change: transform; }
+
+/* hero */
+.brand {
+  text-align: center; color: #fff;
+  /* sombra pra dar leitura em cima das listras claras */
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+.brand h1 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(72px, 13vw, 210px); line-height: 0.9; letter-spacing: -0.02em; white-space: nowrap;
+}
+.brand .ch { display: inline-block; will-change: transform, opacity, filter; opacity: 0; }
+/* "Barber" menor, em cima de "Navalha" */
+.brand .word { display: block; }
+.brand .word.lead { font-family: var(--sans); font-weight: 700; font-size: 0.2em; letter-spacing: 0.6em; text-transform: uppercase; margin: 0 0 0.35em 0.6em; line-height: 1; }
+.brand .sub { display: block; margin-top: 18px; font-size: 13px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; }
+.hint {
+  margin-top: 34px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+  display: flex; flex-direction: column; gap: 12px; align-items: center;
+}
+.hint::after {
+  content: ""; width: 1px; height: 34px;
+  background: linear-gradient(#fff, transparent); animation: drop 1.6s infinite;
+}
+@keyframes drop {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* cards */
+.card {
+  width: 100%; max-width: 540px;
+  opacity: 0; transform: translateY(16px) scale(0.985);
+  transition: opacity 0.3s ease, transform 0.3s ease; /* sai rápido */
+}
+section.active .card {
+  opacity: 1; transform: none;
+  transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.card.manual { transition: none; text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5); }
+.kicker {
+  display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 14px;
+}
+h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(38px, 5.5vw, 68px); line-height: 1.02; margin-bottom: 16px; }
+p { color: var(--muted); line-height: 1.6; font-size: clamp(15px, 1.2vw, 17px); }
+
+.list { list-style: none; margin-top: 20px; }
+.list li { display: flex; align-items: baseline; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.list .n { font-weight: 700; }
+.list .d { display: block; color: var(--muted); font-size: 13px; font-weight: 400; margin-top: 2px; }
+.list .v { margin-left: auto; font-family: var(--serif); font-size: 20px; white-space: nowrap; }
+
+.actions { margin-top: 26px; display: flex; gap: 10px; flex-wrap: wrap; }
+.note { margin-top: 22px; font-size: 12px; color: var(--muted); }
+
+/* bolinhas de navegação */
+.dots {
+  position: fixed; right: clamp(12px, 2.5vw, 28px); top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 14px; z-index: 4;
+}
+.dots button {
+  width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--muted);
+  background: transparent; cursor: pointer; padding: 0; transition: 0.3s;
+}
+.dots button.on { background: var(--fg); border-color: var(--fg); transform: scale(1.35); }
+
+/* seções com fundo branco */
+section.light { --fg: #0e0e0e; --muted: #5a5a57; --line: rgba(0, 0, 0, 0.16); --ink: #f5f5f2; color: var(--fg); }
+body.on-light { --fg: #0e0e0e; --muted: #5a5a57; --ink: #f5f5f2; }
+.logo, .site-header .btn { transition: color 0.4s, border-color 0.4s, background 0.4s, transform 0.2s; }
+
+/* fallback sem WebGL */
+html.no-webgl, html.no-webgl body { height: auto; overflow: auto; }
+.no-webgl main { height: auto; touch-action: auto; }
+.no-webgl section { position: relative; min-height: 100svh; visibility: visible; pointer-events: auto; }
+.no-webgl .brand .ch, .no-webgl .logo, .no-webgl .card { opacity: 1 !important; transform: none !important; visibility: visible !important; }
+
+@media (max-width: 700px) {
+  section { padding: 72px 16px 6svh; align-items: flex-end; }
+  section.hero { align-items: center; padding-bottom: 40px; }
+  .brand h1 { font-size: clamp(56px, 20vw, 110px); }
+  .brand .sub { letter-spacing: 0.2em; font-size: 11px; }
+  h2 { font-size: 34px; margin-bottom: 10px; }
+  .list { margin-top: 12px; }
+  .list li { padding: 9px 0; }
+  .list .v { font-size: 18px; }
+  .dots { display: none; }
+  .site-header .btn { padding: 9px 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .gl { transition: none; }
+  .hint::after { animation: none; }
+}
+
+/* scrollbar fina; a cor segue o --fg, então escurece sozinha nas seções claras */
+:root { --thumb: color-mix(in srgb, var(--fg) 26%, transparent); --thumb-hover: color-mix(in srgb, var(--fg) 55%, transparent); }
+@supports (scrollbar-color: auto) {
+  * { scrollbar-width: thin; scrollbar-color: var(--thumb) transparent; }
+  *:hover { scrollbar-color: var(--thumb-hover) transparent; }
+}
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--thumb); border-radius: 999px; border: 3px solid transparent; background-clip: padding-box; }
+  ::-webkit-scrollbar-thumb:hover { background-color: var(--thumb-hover); }
+  ::-webkit-scrollbar-corner { background: transparent; }
+}
+section.light, .modal, body.on-light {
+  --thumb: color-mix(in srgb, var(--fg) 26%, transparent);
+  --thumb-hover: color-mix(in srgb, var(--fg) 55%, transparent);
+}
+::selection { background: var(--fg); color: var(--ink); }
