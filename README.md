@@ -31,7 +31,7 @@ Site de barbearia em uma página, com uma animação em three.js controlada pelo
 Precisa do Node.js 20.9 ou mais novo (tem um `.nvmrc` na raiz).
 
 ```bash
-git clone https://github.com/Er1ckVictor/Barber-navalha.git
+git clone <url-do-repositorio>
 cd barbearia
 npm install
 npm run dev
@@ -44,9 +44,23 @@ Depois é só abrir http://localhost:3000.
 | Comando | O que faz |
 | --- | --- |
 | `npm run dev` | servidor de desenvolvimento |
-| `npm run build` | build de produção |
-| `npm start` | sobe o build de produção |
+| `npm run build` | gera o site estático em `out/` |
+| `npm start` | serve a pasta `out/` gerada pelo build |
 | `npm run typecheck` | checagem de tipos com o `tsc` |
+
+## Publicando no GitHub Pages
+
+O projeto já sai como site estático (`output: 'export'`) e tem um workflow em [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
+
+1. Suba o repositório para o GitHub.
+2. Em **Settings → Pages**, escolha **GitHub Actions** como fonte.
+3. Faça um push na `main` (ou rode o workflow manualmente em **Actions**).
+
+O workflow descobre sozinho o caminho do site (`/<nome-do-repo>`) e passa para o build em `NEXT_PUBLIC_BASE_PATH`. Para testar localmente com o mesmo caminho:
+
+```bash
+NEXT_PUBLIC_BASE_PATH=/barbearia npm run build
+```
 
 ## Estrutura
 
@@ -76,7 +90,7 @@ src/
 
 **Conteúdo.** Textos, serviços, preços, barbeiros, planos, horários e comentários ficam em [`src/data/barbearia.ts`](src/data/barbearia.ts).
 
-**Fotos.** As fotos dos barbeiros em `public/img/barbeiros/` são só marcadores. Basta colocar as fotos reais na mesma pasta e ajustar o campo `foto` de cada um. Para a foto do main, salve em `public/img/barbearia.jpg` e troque `fotoFundo.src`. Sem imagens remotas, dá pra remover o `remotePatterns` do `next.config.ts`.
+**Fotos.** As fotos vêm direto do CDN do Unsplash, com corte e tamanho definidos na própria URL (função `unsplash()` no arquivo de dados). Para usar outra, troque o id da foto. Para usar fotos próprias, coloque em `public/img/` e lembre que no GitHub Pages o caminho precisa do prefixo do repositório (ex: `${process.env.NEXT_PUBLIC_BASE_PATH}/img/rafael.jpg`).
 
 **Cores do poste.** Ficam em `COLORS`, no [`shaders.ts`](src/lib/animation/shaders.ts).
 
@@ -124,4 +138,9 @@ Para usar de verdade, o caminho é trocar [`src/lib/auth.ts`](src/lib/auth.ts), 
 
 ## Créditos
 
-Foto de exemplo do main: [Joshua Lawrence no Unsplash](https://unsplash.com/photos/black-and-silver-barber-chair-dU6eE_j2My8).
+Fotos do [Unsplash](https://unsplash.com/license), todas com a licença livre (uso comercial permitido, sem atribuição obrigatória):
+
+- Main: [Joshua Lawrence](https://unsplash.com/photos/black-and-silver-barber-chair-dU6eE_j2My8)
+- Rafael: [Allef Vinicius](https://unsplash.com/photos/man-sitting-on-barbers-chair-IvQeAVeJULw)
+- Diego: [Blanche Peulot](https://unsplash.com/photos/a-man-with-a-beard-is-posing-for-a-picture-f0T1OTh_q4o)
+- Marcos: [Eugene Chystiakov](https://unsplash.com/photos/shallow-focus-photo-of-man-holding-scissors-taZSJ6xmt48)

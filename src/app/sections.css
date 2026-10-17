@@ -49,12 +49,13 @@ button { font: inherit; color: inherit; }
 .barber-cta { margin-top: 4px; font-size: 13px; font-weight: 700; }
 
 /* chips (categorias, pagamento, filtros) */
-.chips { display: flex; gap: 8px; margin-top: 18px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+/* flex: none pra linha não ser espremida pela lista de baixo */
+.chips { flex: none; display: flex; gap: 8px; margin-top: 18px; overflow-x: auto; scrollbar-width: none; padding: 2px 0; }
 .chips::-webkit-scrollbar { display: none; }
 .chips.wrap { flex-wrap: wrap; overflow: visible; margin-top: 10px; }
 .chip {
   flex: none; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
-  padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line);
+  white-space: nowrap; line-height: 1.2; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line);
   background: transparent; font-size: 13px; font-weight: 700; transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 .chip:hover { border-color: var(--fg); }

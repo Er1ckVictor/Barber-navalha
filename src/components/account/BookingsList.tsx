@@ -144,7 +144,7 @@ function BookingItem({
       <div className="booking-top">
         {barbeiro && (
           <span className="booking-photo">
-            <Image src={barbeiro.foto} alt="" fill sizes="44px" unoptimized={barbeiro.foto.endsWith('.svg')} />
+            <Image src={barbeiro.foto} alt="" fill sizes="44px" />
           </span>
         )}
         <div className="booking-title">

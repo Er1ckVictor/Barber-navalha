@@ -48,7 +48,7 @@ export function BarbersSection({ secao, barbeiros, active, light, servicoPendent
                   aria-label={`Agendar com ${b.nome}`}
                 >
                   <span className="barber-photo">
-                    <Image src={b.foto} alt="" fill sizes="(max-width: 700px) 70vw, 300px" unoptimized={b.foto.endsWith('.svg')} />
+                    <Image src={b.foto} alt="" fill sizes="(max-width: 700px) 70vw, 300px" />
                   </span>
                   <span className="barber-info">
                     <span className="barber-name">{b.nome}</span>

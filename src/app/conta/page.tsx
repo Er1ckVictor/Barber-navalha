@@ -1,5 +1,11 @@
-import { redirect } from 'next/navigation';
+'use client';
 
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+
+// redirect() de servidor não existe no export estático
 export default function Conta() {
-  redirect('/conta/perfil');
+  const router = useRouter();
+  useEffect(() => router.replace('/conta/perfil'), [router]);
+  return null;
 }

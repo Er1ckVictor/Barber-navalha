@@ -1,7 +1,11 @@
 import type { DadosBarbearia } from '@/types/barbearia';
 
 // Todo o conteúdo do site vem daqui (dados fictícios).
-// Imagens ficam em /public/img.
+// As fotos são do Unsplash (licença livre, uso comercial permitido). O CDN deles
+// já recorta e redimensiona pela URL, então funciona igual no GitHub Pages.
+const unsplash = (id: string, w = 640, h = 520) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&crop=faces&w=${w}&h=${h}&q=70`;
+
 export const barbearia: DadosBarbearia = {
   marca: {
     nome: 'Barber Navalha',
@@ -9,7 +13,7 @@ export const barbearia: DadosBarbearia = {
   },
 
   fotoFundo: {
-    // foto de Joshua Lawrence no Unsplash; trocar por uma local, ex: /img/barbearia.jpg
+    // Joshua Lawrence
     src: 'https://images.unsplash.com/photo-1621645582931-d1d3e6564943?auto=format&fit=crop&w=1920&q=70',
     alt: 'Interior da barbearia com cadeira clássica',
   },
@@ -41,7 +45,7 @@ export const barbearia: DadosBarbearia = {
     {
       id: 'rafael',
       nome: 'Rafael Souza',
-      foto: '/img/barbeiros/rafael.svg',
+      foto: unsplash('1503951914875-452162b0f3f1'), // Allef Vinicius
       descricao: 'Especialista em degradê e desenhos. 12 anos de cadeira.',
       especialidades: ['Degradê', 'Desenhos'],
       avaliacao: 4.9,
@@ -51,7 +55,7 @@ export const barbearia: DadosBarbearia = {
     {
       id: 'diego',
       nome: 'Diego Lima',
-      foto: '/img/barbeiros/diego.svg',
+      foto: unsplash('1642795730901-84f82e088e17'), // Blanche Peulot
       descricao: 'Barba, visagismo e toalha quente. O mestre da navalha.',
       especialidades: ['Barba', 'Visagismo'],
       avaliacao: 4.8,
@@ -62,7 +66,7 @@ export const barbearia: DadosBarbearia = {
     {
       id: 'marcos',
       nome: 'Marcos Alves',
-      foto: '/img/barbeiros/marcos.svg',
+      foto: unsplash('1553521041-d168abd31de3'), // Eugene Chystiakov
       descricao: 'Cortes clássicos na tesoura, do social ao executivo.',
       especialidades: ['Tesoura', 'Clássicos'],
       avaliacao: 5.0,

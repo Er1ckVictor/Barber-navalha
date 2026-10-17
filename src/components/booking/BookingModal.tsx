@@ -109,7 +109,7 @@ export function BookingModal({ usuario, barbeiro, servicos, categorias, formasPa
       <div className="modal" role="dialog" aria-modal="true" aria-labelledby="booking-title" data-scroll>
         <header className="modal-head">
           <span className="modal-photo">
-            <Image src={barbeiro.foto} alt="" fill sizes="56px" unoptimized={barbeiro.foto.endsWith('.svg')} />
+            <Image src={barbeiro.foto} alt="" fill sizes="56px" />
           </span>
           <div className="modal-who">
             <h3 id="booking-title" ref={tituloRef} tabIndex={-1}>
