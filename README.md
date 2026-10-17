@@ -1,3 +1,5 @@
+**Github Page:** [Barber Navalha](https://er1ckvictor.github.io/Barber-navalha/)
+--
 # Barber Navalha
 
 Site de barbearia em uma página, com uma animação em three.js controlada pelo scroll: o poste de barbeiro gira, a câmera se aproxima até entrar numa listra e, a partir daí, cada seção é uma volta do poste.
