@@ -91,7 +91,7 @@ export function HoursSection({ secao, funcionamento, endereco, rodape, avaliacoe
             <div className="reviews-head">
               <div>
                 <span className="kicker">Comentários</span>
-                <h3>Quem senta, volta.</h3>
+                <h3>Quem corta, sempre volta.</h3>
               </div>
               <Rating valor={media} total={todos.length} />
             </div>
